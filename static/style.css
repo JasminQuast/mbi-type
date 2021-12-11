@@ -1,0 +1,8 @@
+h1 {
+    color: dodgerblue;
+}
+
+img[alt*="types-img"] {
+    width: 750px;
+    height: 700px;
+}
