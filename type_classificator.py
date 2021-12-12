@@ -30,7 +30,7 @@ count_vect = StemmedCountVectorizer(min_df=50, token_pattern = r'(?u)\b[A-Za-z]+
 # data_dtm = pd.concat([data, dtm], axis=1)
 
 
-# Versuch 4 - klassischer CountVectorizer:
+# Versuch 3 - klassischer CountVectorizer:
 # count_vect = CountVectorizer(min_df = 250, token_pattern = r'(?u)\b[A-Za-z]+\b', stop_words="english")
 # or:
 #count_vect = CountVectorizer(min_df = 50, token_pattern = r'(?u)\b[A-Za-z]+\b', stop_words="english", ngram_range=(1,2))
