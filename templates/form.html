@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+
+{% block content %}
+
+<div class="card bg-dark text-gray">
+    <img src="/static/twitt-backgr.jpg" class="card-img" alt="...">
+  <div class="card-img-overlay">
+    <br/>
+    <h1 class="card-title">Twitter Types Predictor</h1>
+    <br/>
+      <p class="card-text">{{ name }} has probably the following type:</p>
+
+  </div>
+</div>
+
+<!--<img src="/static/twitt-backgr.jpg" class="img-fluid" alt="...">-->
+
+{% endblock %}

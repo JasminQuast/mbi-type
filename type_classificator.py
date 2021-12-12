@@ -1,53 +1,43 @@
 import pandas as pd
+import nltk.stem
+from sklearn.feature_extraction.text import CountVectorizer
+# import nltk.stem
+# import re
+# from nltk.stem.porter import PorterStemmer
+
 data = pd.read_csv('/Users/mineq/us-aufgaben/PersonalityTypes/mbti_1.csv')
 data.columns =["target_variable", "posts"]
 
 #extract features from text
 #https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html
 
-# import nltk.stem
-# import re
-# from nltk.stem.porter import PorterStemmer
+
+# Versuch 1 - StemmedCountVectorizer:
+engl_stemmer = nltk.stem.SnowballStemmer('english')
+class StemmedCountVectorizer(CountVectorizer):
+    def build_analyzer(self):
+        analyzer = super(StemmedCountVectorizer, self).build_analyzer()
+        return lambda doc: ([engl_stemmer.stem(w) for w in analyzer(doc)])
+count_vect = StemmedCountVectorizer(min_df=50, token_pattern = r'(?u)\b[A-Za-z]+\b', stop_words="english", ngram_range=(1,2))
 
 
-# Versuch 1 - SnowballStemmer auf StemmedCountVectorizer:
-#
-# engl_stemmer = nltk.stem.SnowballStemmer('english')
-# class StemmedCountVectorizer(CountVectorizer):
-#     def build_analyzer(self):
-#         analyzer = super(StemmedCountVectorizer, self).build_analyzer()
-#         return lambda doc: ([engl_stemmer.stem(w) for w in analyzer(doc)])
-# count_vect = StemmedCountVectorizer(min_df=250, token_pattern = r'(?u)\b[A-Za-z]+\b', stop_words="english")
-
-
-# Versuch 2 - PorterStemmer auf CountVectorizer:
-#
-# def stemming_tokenizer(str_input):
-#     porter_stemmer = PorterStemmer()
-#     words = re.sub(r"[^A-Za-z0-9\-]", " ", str_input).lower().split()
-#     words = [porter_stemmer.stem(word) for word in words]
-#     return words
-# count_vect = CountVectorizer(min_df = 250, tokenizer=stemming_tokenizer)
-
-
-# Versuch 3 - TfidfVectorizer
-#
-from sklearn.feature_extraction.text import TfidfVectorizer
-tfidf_vect = TfidfVectorizer(min_df = 250, token_pattern = r'(?u)\b[A-Za-z]+\b', stop_words="english")
-X = tfidf_vect.fit_transform(data['posts']) #document_term_matrix or bag_of_words
-dtm = pd.DataFrame(X.toarray()) # transform x to array
-dtm.columns = tfidf_vect.get_feature_names() # stores column names
-data_dtm = pd.concat([data, dtm], axis=1)
+# Versuch 2 - TfidfVectorizer
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# tfidf_vect = TfidfVectorizer(min_df = 250, token_pattern = r'(?u)\b[A-Za-z]+\b', stop_words="english")
+# X = tfidf_vect.fit_transform(data['posts']) #document_term_matrix or bag_of_words
+# dtm = pd.DataFrame(X.toarray()) # transform x to array
+# dtm.columns = tfidf_vect.get_feature_names() # stores column names
+# data_dtm = pd.concat([data, dtm], axis=1)
 
 
 # Versuch 4 - klassischer CountVectorizer:
-#
-# from sklearn.feature_extraction.text import CountVectorizer
 # count_vect = CountVectorizer(min_df = 250, token_pattern = r'(?u)\b[A-Za-z]+\b', stop_words="english")
-# X = count_vect.fit_transform(data['posts']) #document_term_matrix or bag_of_words
-# dtm = pd.DataFrame(X.toarray()) # transform x to array
-# dtm.columns = count_vect.get_feature_names() # stores column names
-# data_dtm = pd.concat([data, dtm], axis=1)
+# or:
+#count_vect = CountVectorizer(min_df = 50, token_pattern = r'(?u)\b[A-Za-z]+\b', stop_words="english", ngram_range=(1,2))
+X = count_vect.fit_transform(data['posts']) #document_term_matrix or bag_of_words
+dtm = pd.DataFrame(X.toarray()) # transform x to array
+dtm.columns = count_vect.get_feature_names() # stores column names
+data_dtm = pd.concat([data, dtm], axis=1)
 
 
 #generate training and test data

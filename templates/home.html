@@ -6,16 +6,23 @@
 <div class="card bg-dark text-gray">
     <img src="/static/twitt-backgr.jpg" class="card-img" alt="...">
   <div class="card-img-overlay">
+    <br/>
     <h1 class="card-title">Twitter Types Predictor</h1>
     <p class="card-text">Predict the personality type of people by their social media posts based on the Myers-Briggs Type Indicator.</p>
     <p class="card-text">Try it yourself by entering the name of a person on Twitter.</p>
+    <br/>
 
     <div class="card" style="width: 30rem;">
       <ul class="list-group list-group-flush">
+        <form action="/form" method="POST">
         <div class="input-group input-group-lg">
           <span class="input-group-text" id="inputGroup-sizing-lg">@</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+
+          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+          placeholder="Twitter Name" name="twittname">
+          <button type="submit" class="btn btn-secondary">Go!</button>
         </div>
+        </form>
       </ul>
     </div>
 
