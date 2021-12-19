@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+import Twitter_getUser
 
 # To set your environment variables in your terminal run the following line:
 # export 'BEARER_TOKEN'='<your_bearer_token>'
@@ -8,10 +9,7 @@ bearer_token = os.environ.get("bearer_token")
 
 
 def create_url():
-    # Replace with user ID below
-    #user_id = 2244994945
-    user_id = 3292982985
-    return "https://api.twitter.com/2/users/{}/tweets".format(user_id)
+    return "https://api.twitter.com/2/users/{}/tweets".format(Twitter_getUser.twittID())
 
 
 def get_params():
@@ -29,7 +27,6 @@ def bearer_oauth(r):
     """
     Method required by bearer token authentication.
     """
-
     r.headers["Authorization"] = f"Bearer {bearer_token}"
     r.headers["User-Agent"] = "v2UserTweetsPython"
     return r
@@ -37,7 +34,7 @@ def bearer_oauth(r):
 
 def connect_to_endpoint(url, params):
     response = requests.request("GET", url, auth=bearer_oauth, params=params)
-    print(response.status_code)
+    #print(response.status_code)
     if response.status_code != 200:
         raise Exception(
             "Request returned an error: {} {}".format(
@@ -51,7 +48,15 @@ def main():
     url = create_url()
     params = get_params()
     json_response = connect_to_endpoint(url, params)
-    print(json.dumps(json_response, indent=4, sort_keys=True))
+
+    json_data = json.dumps(json_response, indent=4, sort_keys=True)
+    item_dict = json.loads(json_data)
+    json_lenght = len(item_dict['data'])
+
+    text_list = []
+    for x in range(1, json_lenght):
+        text_list.append(json_response['data'][x]['text'])
+    print(text_list)
 
 
 if __name__ == "__main__":
