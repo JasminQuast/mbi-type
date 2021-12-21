@@ -1,5 +1,6 @@
 import requests
 import os
+from flask import Flask, request
 
 # To set your enviornment variables in your terminal run the following line:
 # export 'BEARER_TOKEN'='<your_bearer_token>'
@@ -7,7 +8,8 @@ bearer_token = os.environ.get("bearer_token")
 
 
 def create_url():
-    twitter_name = 'Karl_Lauterbach'
+    twitter_name = 'BarackObama'
+    #twitter_name = request.form.get("twittname")
     usernames = "usernames=" + twitter_name + ",TwitterAPI"
     #user_fields = "user.fields=description,created_at"
     #tweet_fields = "tweet.fields=attachments"
