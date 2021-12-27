@@ -50,8 +50,11 @@ test = data_dtm.drop(sample)
 #http://scikit-learn.org/stable/tutorial/machine_learning_map/
 from sklearn.ensemble import RandomForestClassifier
 forest = RandomForestClassifier()
-forest.fit(training.iloc[:,2:], training["target_variable"]) #X = data[:, 2:] - select columns 2 through end (the text); y = data[:, 0] - select column 0 (the target_variable)
-print(forest.score(test.iloc[:,2:],test["target_variable"]))
+X_train = training.iloc[:,2:]
+X_test = test.iloc[:,2:]
+model = forest.fit(X_train, training["target_variable"]) #X = data[:, 2:] - select columns 2 through end (the text); y = data[:, 0] - select column 0 (the target_variable)
+prediction_score = forest.score(X_test, test["target_variable"])
+#print(prediction_score)
 
 
 #explore predictions
