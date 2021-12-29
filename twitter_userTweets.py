@@ -1,23 +1,18 @@
 import requests
 import os
 import json
-
-import Twitter_getUser
+import twitter_getUser
 import pandas as pd
-import nltk.stem
 from sklearn.feature_extraction.text import CountVectorizer
-#import type_classificator
 from sklearn.ensemble import RandomForestClassifier
-
-# To set your environment variables in your terminal run the following line:
-# export 'BEARER_TOKEN'='<your_bearer_token>'
 import type_classificator
+import pickle
 
 bearer_token = os.environ.get("bearer_token")
 
 
 def create_url():
-    return "https://api.twitter.com/2/users/{}/tweets?max_results=100".format(Twitter_getUser.twittID())
+    return "https://api.twitter.com/2/users/{}/tweets?max_results=100".format(twitter_getUser.twittID())
 
 
 def get_params():
@@ -42,7 +37,6 @@ def bearer_oauth(r):
 
 def connect_to_endpoint(url, params):
     response = requests.request("GET", url, auth=bearer_oauth, params=params)
-    #print(response.status_code)
     if response.status_code != 200:
         raise Exception(
             "Request returned an error: {} {}".format(
@@ -50,6 +44,7 @@ def connect_to_endpoint(url, params):
             )
         )
     return response.json()
+
 
 url = create_url()
 params = get_params()
@@ -85,6 +80,12 @@ forest = RandomForestClassifier()
 forest.fit(type_classificator.X_train, type_classificator.training["target_variable"])
 pred_class = str(forest.predict(x_twitt))
 
+# Saving model to disk
+pickle.dump(forest, open('model.pkl', 'wb'))
+
+# Loading model to compare the results
+model = pickle.load(open('model.pkl', 'rb'))
+print(model.predict(x_twitt))
 
 #if __name__ == "__main__":
 #    main()
