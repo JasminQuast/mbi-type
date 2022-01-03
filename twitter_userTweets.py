@@ -6,7 +6,6 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import RandomForestClassifier
 import type_classificator
-import pickle
 
 bearer_token = os.environ.get("bearer_token")
 
@@ -79,13 +78,6 @@ x_twitt = count_vect_twitt.fit_transform([big_text_list])
 forest = RandomForestClassifier()
 forest.fit(type_classificator.X_train, type_classificator.training["target_variable"])
 pred_class = str(forest.predict(x_twitt))
-
-# Saving model to disk
-pickle.dump(forest, open('model.pkl', 'wb'))
-
-# Loading model to compare the results
-model = pickle.load(open('model.pkl', 'rb'))
-print(model.predict(x_twitt))
 
 #if __name__ == "__main__":
 #    main()
