@@ -8,8 +8,8 @@ bearer_token = os.environ.get("bearer_token")
 
 
 def create_url():
-    twitter_name = 'BarackObama'
-    #twitter_name = request.form.get("twittname")
+    #twitter_name = 'BarackObama'
+    twitter_name = request.form.get("twittname")
     usernames = "usernames=" + twitter_name + ",TwitterAPI"
     #user_fields = "user.fields=description,created_at"
     #tweet_fields = "tweet.fields=attachments"
