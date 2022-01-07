@@ -68,7 +68,8 @@ def pred():
 
     forest = RandomForestClassifier()
     forest.fit(type_classificator.X_train, type_classificator.training["target_variable"])
-    pred = str(forest.predict(x_twitt))
+    pred_dict = forest.predict(x_twitt)
+    pred = ''.join(str(e) for e in pred_dict)
     return pred
 
 # if __name__ == "__main__":

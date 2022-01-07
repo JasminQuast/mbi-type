@@ -8,11 +8,11 @@ bearer_token = os.environ.get("bearer_token")
 
 
 def create_url():
-    #twitter_name = 'BarackObama'
+    # twitter_name = 'BarackObama' # placeholder for testing
     twitter_name = request.form.get("twittname")
     usernames = "usernames=" + twitter_name + ",TwitterAPI"
-    #user_fields = "user.fields=description,created_at"
-    #tweet_fields = "tweet.fields=attachments"
+    # user_fields = "user.fields=description,created_at"
+    # tweet_fields = "tweet.fields=attachments"
 
     url = "https://api.twitter.com/2/users/by?{}".format(usernames)
     return url
@@ -28,7 +28,7 @@ def bearer_oauth(r):
 
 
 def connect_to_endpoint(url):
-    response = requests.request("GET", url, auth=bearer_oauth,)
+    response = requests.request("GET", url, auth=bearer_oauth, )
     if response.status_code != 200:
         raise Exception(
             "Request returned an error: {} {}".format(
