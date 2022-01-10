@@ -9,11 +9,19 @@
     <br/>
     <h1 class="card-title">Twitter Types Predictor</h1>
     <br/>
-      <p class="card-text">{{ twittname }} has probably the following type:</p>
+    {% if error_found == True %}
+      <p class="card-text">Sorry the user is not available. {{ error_reason }}</p>
+    {% else %}
+      <p class="card-text">{{ real_name }} (@{{ twittname }}) has probably the following type:</p>
       <br/>
       <h2 class="card-text">{{ prediction }}</h2>
       <h3 class="card-text">{{ description }}</h3>
-
+      <br/>
+      <p class="card-text">The Account was created at {{ create_date }}</p>
+      <br/>
+      <br/>
+<!--      <p class="card-text">{{ testResponse }}</p>-->
+    {% endif %}
   </div>
 </div>
 

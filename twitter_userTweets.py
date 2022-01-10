@@ -22,7 +22,7 @@ def get_params():
     # in_reply_to_user_id, lang, non_public_metrics, organic_metrics,
     # possibly_sensitive, promoted_metrics, public_metrics, referenced_tweets,
     # source, text, and withheld
-    return {"tweet.fields": "created_at"}
+    return {"tweet.fields": "created_at,lang"}
 
 
 def bearer_oauth(r):
@@ -54,7 +54,8 @@ def pred():
 
     text_list = []
     for x in range(1, json_lenght):
-        text_list.append(json_response['data'][x]['text'])
+        if (json_response['data'][x]['lang']) == 'en':
+            text_list.append(json_response['data'][x]['text'])
 
     big_text_list = ' '.join(text_list)
     df = pd.DataFrame([big_text_list])
@@ -68,9 +69,7 @@ def pred():
 
     forest = RandomForestClassifier()
     forest.fit(type_classificator.X_train, type_classificator.training["target_variable"])
-    pred_dict = forest.predict(x_twitt)
-    pred = ''.join(str(e) for e in pred_dict)
+    pred_forest = forest.predict(x_twitt)
+    pred = ''.join(str(e) for e in pred_forest)
     return pred
 
-# if __name__ == "__main__":
-#    main()
