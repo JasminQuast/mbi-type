@@ -21,13 +21,14 @@ def form():
         return render_template('form.html', error_found=error_found, error_reason=error_reason)
     else:
         prediction = twitter_userTweets.pred()
+        past_prediction = twitter_userTweets.past_ped()
         real_name = twitter_getUser.realName()
         description = type_description.description()
-        create_date = twitter_getUser.createDate()
+        create_year = twitter_getUser.registrationYear()
         testResponse = twitter_getUser.testResponse()
         return render_template('form.html', error_found=error_found, twittname=twittname, prediction=prediction,
-                        real_name=real_name,
-                        description=description, create_date=create_date, testResponse=testResponse)
+                        real_name=real_name,past_prediction=past_prediction,
+                        description=description, create_year=create_year, testResponse=testResponse)
 
 
 @app.route('/types')

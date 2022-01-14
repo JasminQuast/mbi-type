@@ -11,15 +11,19 @@
     <br/>
     {% if error_found == True %}
       <p class="card-text">Sorry the user is not available. {{ error_reason }}</p>
+
     {% else %}
       <p class="card-text">{{ real_name }} (@{{ twittname }}) has probably the following type:</p>
       <br/>
       <h2 class="card-text">{{ prediction }}</h2>
       <h3 class="card-text">{{ description }}</h3>
       <br/>
-      <p class="card-text">The Account was created at {{ create_date }}</p>
       <br/>
+      <p class="card-text">Let's go back in time to {{ create_year }}. At that time, {{ real_name }} had the type:</p>
       <br/>
+      <h2 class="card-text">{{ past_prediction }}</h2>
+
+
 <!--      <p class="card-text">{{ testResponse }}</p>-->
     {% endif %}
   </div>

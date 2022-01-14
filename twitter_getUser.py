@@ -1,3 +1,5 @@
+import datetime
+
 import requests
 import os
 from flask import Flask, request
@@ -8,8 +10,8 @@ bearer_token = os.environ.get("bearer_token")
 
 
 def create_url():
-    twitter_name = 'realDonaldTrump' # placeholder for testing
-    #twitter_name = request.form.get("twittname")
+    #twitter_name = 'Cristiano' # placeholder for testing
+    twitter_name = request.form.get("twittname")
     usernames = "usernames=" + twitter_name + ",TwitterAPI"
     user_fields = "user.fields=created_at,name"
 
@@ -58,16 +60,25 @@ def realName():
     real_name = json_response['data'][0]['name']
     return real_name
 
+def registrationYear():
+    url = create_url()
+    json_response = connect_to_endpoint(url)
+    created_at = str(json_response['data'][0]['created_at']) # 2007-03-05T22:08:25.000Z
+    registration_year = int(created_at[0:4])
+
+    return registration_year
+
 def createDate():
     url = create_url()
     json_response = connect_to_endpoint(url)
     created_at = json_response['data'][0]['created_at']
     return created_at
 
+
 def twittID():
     url = create_url()
     json_response = connect_to_endpoint(url)
-    twitter_id = json_response['data'][0]['id'] #813286
+    twitter_id = json_response['data'][0]['id']
     return twitter_id
 
 def testResponse():
@@ -76,4 +87,4 @@ def testResponse():
     return json_response
 
 if __name__ == "__main__":
-    error_reason()
+    registrationYear()
