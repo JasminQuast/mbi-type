@@ -1,7 +1,6 @@
 asgiref==3.4.1
 click==8.0.3
 colorama==0.4.4
-Django==4.0
 Flask==2.0.2
 gunicorn==20.1.0
 itsdangerous==2.0.1

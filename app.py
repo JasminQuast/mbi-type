@@ -1,8 +1,6 @@
 from flask import Flask, request, render_template
-
 import twitter_getUser
 import twitter_userTweets
-import type_description
 
 app = Flask(__name__)
 
@@ -23,12 +21,9 @@ def form():
         prediction = twitter_userTweets.pred()
         past_prediction = twitter_userTweets.past_ped()
         real_name = twitter_getUser.realName()
-        description = type_description.description()
-        create_year = twitter_getUser.registrationYear()
-        testResponse = twitter_getUser.testResponse()
+        create_year = twitter_userTweets.start_time()
         return render_template('form.html', error_found=error_found, twittname=twittname, prediction=prediction,
-                        real_name=real_name,past_prediction=past_prediction,
-                        description=description, create_year=create_year, testResponse=testResponse)
+                               real_name=real_name, past_prediction=past_prediction, create_year=create_year)
 
 
 @app.route('/types')
