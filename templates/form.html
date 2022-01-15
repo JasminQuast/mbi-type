@@ -15,13 +15,17 @@
     {% else %}
       <p class="card-text">{{ real_name }} (@{{ twittname }}) has probably the following type:</p>
       <br/>
-      <h3 class="card-text">{{ prediction }}</h3>
+      <h2 class="card-text">{{ prediction }}</h2>
+      <h3 class="card-text">{{ description }}</h3>
       <br/>
       <br/>
       <br/>
       <p class="card-text">Let's go back in time to {{ create_year }}. At that time, {{ real_name }} had the type:</p>
       <br/>
-      <h3 class="card-text">{{ past_prediction }}</h3>
+      <h2 class="card-text">{{ past_prediction }}</h2>
+      <h3 class="card-text">{{ past_description }}</h3>
+      <h3 class="card-text">{{ pred_not_possible }}</h3>
+
 
     {% endif %}
   </div>

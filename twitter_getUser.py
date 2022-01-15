@@ -2,12 +2,11 @@ import requests
 import os
 from flask import Flask, request
 
-
 bearer_token = os.environ.get("bearer_token")
 
 
 def create_url():
-    #twitter_name = 'BarackObama' # placeholder for testing
+    # twitter_name = 'BarackObama' # placeholder for testing
     twitter_name = request.form.get("twittname")
     usernames = "usernames=" + twitter_name + ",TwitterAPI"
     user_fields = "user.fields=created_at,name"
@@ -35,7 +34,11 @@ def connect_to_endpoint(url):
         )
     return response.json()
 
-def errorCheck():
+
+def error_check():
+    """
+    Check if any errors in response, e.g. the user has been suspended
+    """
     url = create_url()
     json_response = connect_to_endpoint(url)
     error = False
@@ -43,31 +46,40 @@ def errorCheck():
         error = True
     return error
 
+
 def error_reason():
+    """
+    Reason of the error
+    """
     json_response = connect_to_endpoint(create_url())
-    error_reason = json_response['errors'][0]['detail']
+    error_reason = str(json_response['errors'][0]['detail'])
     return error_reason
 
-def realName():
+
+def real_name():
+    """
+    Name of the Twitter user
+     """
     url = create_url()
     json_response = connect_to_endpoint(url)
     real_name = json_response['data'][0]['name']
     return real_name
 
-def registrationYear():
+
+def registration_year():
+    """
+    Year of the registration by taking the first 4 characters of the date of registration
+     """
     json_response = connect_to_endpoint(create_url())
-    created_at = str(json_response['data'][0]['created_at']) # 2007-03-05T22:08:25.000Z
+    created_at = str(json_response['data'][0]['created_at'])
     registration_year = int(created_at[0:4])
     return registration_year
 
-def createDate():
-    json_response = connect_to_endpoint(create_url())
-    created_at = json_response['data'][0]['created_at']
-    return created_at
 
-
-def twittID():
+def twitt_id():
+    """
+    ID of the Twitter user
+    """
     json_response = connect_to_endpoint(create_url())
     twitter_id = json_response['data'][0]['id']
     return twitter_id
-

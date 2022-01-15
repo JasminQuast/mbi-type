@@ -2,21 +2,21 @@ h1 {
     color: dodgerblue;
 }
 
-/*h2 {*/
-/*    color: darkslateblue;*/
-/*    font-weight: 600;*/
-/*    font-size: 7vmin;*/
-/*    text-indent: 4em*/
-/*}*/
-
-h3 {
-    color: #624ee3;
-    font-weight: 500;
-    text-indent: 4em;
-    font-size: 4vmin;
+h2 {
+    color: darkslateblue;
+    font-weight: 600;
+    font-size: 7vmin;
+    text-indent: 5em
 }
 
-img[alt*="types-img"] {
-    width: 750px;
-    height: 700px;
+h3 {
+    color: #483d8a;
+    font-weight: 500;
+    text-indent: 4em;
+    font-size: 3vmin;
+}
+
+img[alt*="mbti_matrix"] {
+    width: 600px;
+    height: 600px;
 }
