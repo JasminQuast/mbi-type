@@ -25,8 +25,7 @@ def current_url():
 
 
 def past_url():
-    return "https://api.twitter.com/2/users/{}/tweets?max_results=100&start_time={}-01-01T00:00:00Z&" + \
-           "end_time={}-12-01T00:00:00Z".format(twitter_getUser.twitt_id(), start_time(), start_time())
+    return "https://api.twitter.com/2/users/{}/tweets?max_results=100&start_time={}-01-01T00:00:00Z&end_time={}-12-01T00:00:00Z".format(twitter_getUser.twitt_id(), start_time(), start_time())
 
 
 def connect_to_endpoint(url):
@@ -98,7 +97,7 @@ def past_posts():
 
 
 def start_time():
-    """ Get current year and registration year of the user. Check that the year is not too far back but not too close
+    """ Get current year and registration year of the user. Check that the year is not too far back and not too close
     either. Minimum allowable time according to Twitter is 2010-11-06T00:00:01Z.
 
     :return:
@@ -119,7 +118,7 @@ def start_time():
 
 
 def main_pred(text_list):
-    """ Real data prediction of the type based on training data set in the type_classificator class
+    """ Real data prediction of the type based on training data set in the type_predictor class
 
     :param
         text_list (list): List of posts (0 and 1 are just placeholders)
@@ -133,15 +132,16 @@ def main_pred(text_list):
         df = pd.DataFrame([big_text_list])
         df.columns = ["posts"]
 
-        tokenlist_training_dataset = list(type_classificator.training.iloc[:, 2:])
+        tokenlist_training_dataset = list(type_predictor.training.iloc[:, 2:])
         count_vect_twitt = CountVectorizer(input=[big_text_list], vocabulary=tokenlist_training_dataset)
         count_vect_twitt.get_feature_names()
         x_twitt = count_vect_twitt.fit_transform([big_text_list])
 
         forest = RandomForestClassifier()
-        forest.fit(type_classificator.X_train, type_classificator.training["target_variable"])
+        forest.fit(type_predictor.X_train, type_predictor.training["target_variable"])
         pred_forest = forest.predict(x_twitt)
         pred = ''.join(str(e) for e in pred_forest)
+        print(pred)
     return pred
 
 
@@ -182,4 +182,8 @@ def description(prediction):
         descr_list.append(descr)
     descr = ' - '.join(str(e) for e in descr_list)
 
+    print(descr)
     return descr
+
+if __name__ == '__main__':
+    start_time()

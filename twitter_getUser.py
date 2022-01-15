@@ -6,7 +6,7 @@ bearer_token = os.environ.get("bearer_token")
 
 
 def create_url():
-    # twitter_name = 'BarackObama' # placeholder for testing
+    #twitter_name = 'BarackObama' # placeholder for testing
     twitter_name = request.form.get("twittname")
     usernames = "usernames=" + twitter_name + ",TwitterAPI"
     user_fields = "user.fields=created_at,name"
