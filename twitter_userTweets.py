@@ -8,7 +8,8 @@ from sklearn.ensemble import RandomForestClassifier
 import type_predictor
 import datetime
 
-bearer_token = os.environ.get("bearer_token")
+# bearer_token = os.environ.get("bearer_token") # Encoded Token for GitHub
+bearer_token = "AAAAAAAAAAAAAAAAAAAAACoHWgEAAAAAsJqMO1RYRqlQviQA%2BLTX%2BHw12BM%3DHWNW4RGiwP9YzYxfwnwgamb9SzFZmZhDsJgHPLVCLWf0DM18QK"
 
 
 def bearer_oauth(r):
